@@ -1,0 +1,15 @@
+{
+  "name": "dustmotes-js",
+  "version": "0.0.1",
+  "author": "Martin Minka",
+  "description": "JavaScript evaluation helper",
+  "main": "./js.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rragan/dust-motes.git"
+  },
+  "license": "UNLICENSE",
+  "engine": {
+    "node": ">=0.5"
+  }
+}
