@@ -30,9 +30,9 @@ Variables $key, $value, and $type are defined within the iteration block
 
 ## Example
 ```
-              Data: { title: "Famous People", names: [{ "name": "Larry", "age": 20 },{ "name": "Curly", "age": 30 },{ "name": "Moe", "age": 40 }] }
+              Data: { today: new Date(), title: "Famous People", names: [{ "name": "Larry", "age": 20 },{ "name": "Curly", "age": 30 },{ "name": "Moe", "age": 40 }] }
 
-              {title}
+              {title} - {@js expr="moment(today).format('dd.MM.YYYY')" /}
               <ul>
                 {#names}
                   <li>{@js expr="'-'+name"/}</li>{~n}
