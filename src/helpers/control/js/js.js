@@ -92,6 +92,7 @@
 
         // decide what evaluation function to use
         var jsEval = jsEvalHandleUnknown;
+        var value;
 
         // find out action type and process it
         if (params.hasOwnProperty('expr')) {
@@ -107,13 +108,25 @@
             result = jsEval('for');
             if (result === null) {
                 return chunk;
-            } else if (result instanceof Array) {
-                for (var i = 0; i < arr.length; i++) {
-                    // TODO simulate @iterate
+            } else if (result instanceof Array || typeof result === "string") {
+                for (var i = 0; i < result.length; i++) {
+                    value = result[i];
+                    chunk = body(chunk, ctx.push({
+                        $key: i,
+                        $value: value,
+                        $type: typeof value
+                    }));
                 }
             } else if (typeof result === 'object') {
                 for (var key in result) {
-                    // TODO simulate @iterate
+                    if (result.hasOwnProperty(key)) {
+                        value = result[key];
+                        chunk = body(chunk, ctx.push({
+                            $key: key,
+                            $value: value,
+                            $type: typeof value
+                        }));
+                    }
                 }
             } else {
                 _console.log("Value '" + result + "' passed to 'for' helper has to be array or object.");
