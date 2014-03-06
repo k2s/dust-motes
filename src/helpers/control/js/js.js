@@ -55,14 +55,19 @@
                         for (var v in unknownVars) {
                             fixes += 'if (typeof ' + v + ' ==="undefined") fixes_.' + v + '=null;';
                         }
-                        fixes += "with(fixes_){"
+                        fixes += "with(fixes_){";
                         //noinspection JSHint
-                        exprFunction = new Function('ctx_', 'data_', "with (ctx_.global) with (data_) {" + fixes + 'return ' + expr + '}}');
+                        exprFunction = new Function('ctx_', 'data_', 'loopData_', "with (ctx_.global) with (data_) with (loopData_) {" + fixes + 'return ' + expr + '}}');
                         if (useCache) {
                             ctx.global.exprCache[expr] = exprFunction;
                         }
                     }
-                    return exprFunction.call(chunk, ctx, ctx.stack.head);
+                    var loopData = {};
+                    if (ctx.stack.hasOwnProperty('index')) {
+                        loopData.$idx = ctx.stack.index;
+                        loopData.$len = ctx.stack.of;
+                    }
+                    return exprFunction.call(chunk, ctx, ctx.stack.head, loopData);
                 } catch (e) {
                     if (e.name === 'ReferenceError') {
                         var a = e.message.match(/^(\w*)/);
@@ -95,11 +100,11 @@
                 return chunk;
             } else if (result instanceof Array) {
                 for (var i = 0; i < arr.length; i++) {
-
+                    // TODO simulate @iterate
                 }
             } else if (typeof result === 'object') {
                 for (var key in result) {
-
+                    // TODO simulate @iterate
                 }
             } else {
                 _console.log("Value '" + result + "' passed to 'for' helper has to be array or object.");

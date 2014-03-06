@@ -415,7 +415,6 @@ describe('@JS tests', function () {
             assert.equal(out, "<div>bar</div>");
         });
     });
-/*
     it("if/test helper using direct $idx", function () {
         var code = '{#list}{@js if=" $idx == 1 "}<div>{y}</div>{/js}{/list}';
         var context = {
@@ -450,7 +449,6 @@ describe('@JS tests', function () {
             assert.equal(out, "22");
         });
     });
-*/
     it("if/test helper with array with bad syntax", function () {
         var code = '{@js if="arr.[0]==\'123\'"}123{/js}{$idx}';
         var context = {
