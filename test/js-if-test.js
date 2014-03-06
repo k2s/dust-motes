@@ -1,12 +1,12 @@
 /*global _console: true */
 _console = console;
 /*global dust: true */
-require('dustjs-linkedin');
+dust = require('dustjs-linkedin');
 require('dustjs-helpers');
 require('../src/helpers/control/js');
 var assert = require('assert');
 
-describe('@JS tests', function () {
+describe("@JS 'if' tests", function () {
     it("if/test helper simple name", function () {
         var code = '{@js if="x"}3{/js}';
         var context = {
