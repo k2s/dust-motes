@@ -25,7 +25,14 @@
                         ctx.global.exprCache[expr] = exprFunction;
                     }
                 }
-                return exprFunction.call(chunk, ctx, ctx.stack.head);
+                var loopData = {};
+                if (ctx.stack.hasOwnProperty('index')) {
+                    loopData.$idx = ctx.stack.index;
+                    loopData.$len = ctx.stack.of;
+                }
+                var data = ctx.stack.isObject ? ctx.stack.head : {};
+                data.$this = ctx.stack.head;
+                return exprFunction.call(chunk, ctx, data, loopData);
             } catch (e) {
                 _console.log('jsEvalToFunction (' + expr + ') EXCEPTION ' + e);
                 return undefined;
