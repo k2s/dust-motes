@@ -147,7 +147,6 @@ describe('@JS tests', function () {
         });
     });
 
-/*
     it("if/test helper short-circuit or test explicit undefined", function () {
         var code = '{@js if="x || y || z"}true expected{:else}false wrong{/js}';
         var context = {
@@ -158,7 +157,6 @@ describe('@JS tests', function () {
             assert.equal(out, "true expected");
         });
     });
-*/
 
     it("if/test helper without else using direct names", function () {
         var code = '{@js if="x<y"}<div> X < Y </div>{/js}';
@@ -266,7 +264,6 @@ describe('@JS tests', function () {
             assert.equal(out, "01");
         });
     });
-
     it("if/test helper with use of . for current value", function () {
         var code = '{#arr}{@js if=". < 4"}1{/js}{/arr}';
         var context = {
@@ -376,9 +373,9 @@ describe('@JS tests', function () {
             assert.equal(out, "false");
         });
     });
-/*
-    it("if/test helper with empty brackets err", function () {
-        var code = '{@js if="arr[]"}true{:else}false{/js}';
+    it("if/test helper with empty brackets err (INCOMPATIBLE with @if)", function () {
+        // INCOMPATIBLE with @if, use empty :unknown to achieve the same result
+        var code = '{@js if="arr[]"}true{:else}false{:unknown}{/js}';
         var context = {
             arr: [1, 2, 3]
         };
@@ -386,7 +383,7 @@ describe('@JS tests', function () {
             assert.equal(out, "");
         });
     });
-*/
+
     it("if/test helper with empty parens - error case", function () {
         var code = '{@js if="()"}1{/js}';
         var context = {};
@@ -454,7 +451,6 @@ describe('@JS tests', function () {
         });
     });
 */
-/*
     it("if/test helper with array with bad syntax", function () {
         var code = '{@js if="arr.[0]==\'123\'"}123{/js}{$idx}';
         var context = {
@@ -475,60 +471,54 @@ describe('@JS tests', function () {
             assert.equal(out, "");
         });
     });
-*/
-/*
-    it("if/test helper with consecutive operands", function () {
-        var code = '{@js if="2 3"}true{:else}false{/js}';
+    it("if/test helper with consecutive operands (INCOMPATIBLE with @if)", function () {
+        // INCOMPATIBLE with @if, use empty :unknown to achieve the same result
+        var code = '{@js if="2 3"}true{:else}false{:unknown}{/js}';
         var context = {};
         dust.renderSource(code, context, function (err, out) {
             assert.equal(out, "");
         });
     });
-*/
-/*
-    it("if/test helper with bad operator", function () {
+    it("if/test helper with bad operator (INCOMPATIBLE with @if)", function () {
+        // INCOMPATIBLE with @if: why should this be wrong ? JS will evaluate 2*3 as TRUE
         var code = '{@js if="2*3"}true{:else}false{/js}';
         var context = {};
         dust.renderSource(code, context, function (err, out) {
-            assert.equal(out, "");
+            assert.equal(out, "true");
         });
     });
-*/
-/*
-    it("if/test helper with unclosed string", function () {
-        var code = '{@js if="\'abc"}true{:else}false{/js}';
+    it("if/test helper with unclosed string (INCOMPATIBLE with @if)", function () {
+        // INCOMPATIBLE with @if, use empty :unknown to achieve the same result
+        var code = '{@js if="\'abc"}true{:else}false{:unknown}{/js}';
         var context = {};
         dust.renderSource(code, context, function (err, out) {
             assert.equal(out, "");
         });
     });
-    it("if/test helper with unclosed string", function () {
-        var code = '{@js if="\'abc"}true{:else}false{/js}';
+    it("if/test helper with unclosed string (INCOMPATIBLE with @if)", function () {
+        // INCOMPATIBLE with @if, use empty :unknown to achieve the same result
+        var code = '{@js if="\'abc"}true{:else}false{:unknown}{/js}';
         var context = {};
         dust.renderSource(code, context, function (err, out) {
             assert.equal(out, "");
         });
     });
-*/
-/*
-    it("if/test helper with invalid number - bad exponent", function () {
-        var code = '{@js if="3.25D+27"}true{:else}false{/js}';
+    it("if/test helper with invalid number - bad exponent (INCOMPATIBLE with @if)", function () {
+        // INCOMPATIBLE with @if, use empty :unknown to achieve the same result
+        var code = '{@js if="3.25D+27"}true{:else}false{:unknown}{/js}';
         var context = {};
         dust.renderSource(code, context, function (err, out) {
             assert.equal(out, "");
         });
     });
-*/
-/*
-    it("if/test helper with invalid number double dots", function () {
-        var code = '{@js if="3..1"}true{:else}false{/js}';
+    it("if/test helper with invalid number double dots (INCOMPATIBLE with @if)", function () {
+        // INCOMPATIBLE with @if, use empty :unknown to achieve the same result
+        var code = '{@js if="3..1"}true{:else}false{:unknown}{/js}';
         var context = {};
         dust.renderSource(code, context, function (err, out) {
             assert.equal(out, "");
         });
     });
-*/
-/*
     it("if/test helper with consecutive periods", function () {
         var code = '{@js if=".."}1{/js}';
         var context = {};
@@ -536,17 +526,14 @@ describe('@JS tests', function () {
             assert.equal(out, "");
         });
     });
-*/
-/*
-    it("if/test helper with invalid number", function () {
-        var code = '{@js if="3.25.8"}true{:else}false{/js}';
+    it("if/test helper with invalid number (INCOMPATIBLE with @if)", function () {
+        // INCOMPATIBLE with @if, use empty :unknown to achieve the same result
+        var code = '{@js if="3.25.8"}true{:else}false{:unknown}{/js}';
         var context = {};
         dust.renderSource(code, context, function (err, out) {
             assert.equal(out, "");
         });
     });
-*/
-/*
     it("if/test helper with use of a. - invalid name", function () {
         var code = '{@js if="a."}1{/js}';
         var context = {};
@@ -554,8 +541,6 @@ describe('@JS tests', function () {
             assert.equal(out, "");
         });
     });
-*/
-/*
     it("if/test helper with use of a..b - invalid name", function () {
         var code = '{@js if="a..b"}1{/js}';
         var context = {};
@@ -563,14 +548,14 @@ describe('@JS tests', function () {
             assert.equal(out, "");
         });
     });
-    it("if/test helper with consecutive operators", function () {
-        var code = '{@js if="==||"}true{:else}false{/js}';
+    it("if/test helper with consecutive operators (INCOMPATIBLE with @if)", function () {
+        // INCOMPATIBLE with @if, use empty :unknown to achieve the same result
+        var code = '{@js if="==||"}true{:else}false{:unknown}{/js}';
         var context = {};
         dust.renderSource(code, context, function (err, out) {
             assert.equal(out, "");
         });
     });
-*/
     it("if helper with no body using tap", function () {
         var code = '{@js if="{x}<{y}"/}';
         var context = {
