@@ -67,7 +67,9 @@
                         loopData.$idx = ctx.stack.index;
                         loopData.$len = ctx.stack.of;
                     }
-                    return exprFunction.call(chunk, ctx, ctx.stack.head, loopData);
+                    var data = ctx.stack.isObject ? ctx.stack.head : {};
+                    data.$this = ctx.stack.head;
+                    return exprFunction.call(chunk, ctx, data, loopData);
                 } catch (e) {
                     if (e.name === 'ReferenceError') {
                         var a = e.message.match(/^(\w*)/);

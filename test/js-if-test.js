@@ -247,9 +247,8 @@ describe('@JS tests', function () {
             assert.equal(out, "false");
         });
     });
-/*
-    it("if/test helper with use of .name", function () {
-        var code = '{#arr}{@js if=".val == $idx"}{$idx}{/js}{/arr}';
+    it("if/test helper with use of $this.name (INCOMPATIBLE with @if)", function () {
+        var code = '{#arr}{@js if="$this.val == $idx"}{$idx}{/js}{/arr}';
         var context = {
             arr: [
                 {
@@ -264,8 +263,8 @@ describe('@JS tests', function () {
             assert.equal(out, "01");
         });
     });
-    it("if/test helper with use of . for current value", function () {
-        var code = '{#arr}{@js if=". < 4"}1{/js}{/arr}';
+    it("if/test helper with use of $this for current value (INCOMPATIBLE with @if)", function () {
+        var code = '{#arr}{@js if="$this < 4"}1{/js}{/arr}';
         var context = {
             arr: [1, 2, 3]
         };
@@ -273,8 +272,8 @@ describe('@JS tests', function () {
             assert.equal(out, "111");
         });
     });
-    it("if/test helper with array with bracket and dot name", function () {
-        var code = '{#arr}{@js if=".[0]==$idx"}{$idx}{/js}{/arr}';
+    it("if/test helper with array with bracket and $this.name (INCOMPATIBLE with @if)", function () {
+        var code = '{#arr}{@js if="$this[0]==$idx"}{$idx}{/js}{/arr}';
         var context = {
             "arr": [
                 [0],
@@ -285,7 +284,6 @@ describe('@JS tests', function () {
             assert.equal(out, "01");
         });
     });
-*/
     it("if/test helper with unary operator", function () {
         var code = '{@js if="!0"}true{/js}';
         var context = {};
