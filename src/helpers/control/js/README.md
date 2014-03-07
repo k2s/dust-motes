@@ -2,6 +2,8 @@
 
 EXPERIMENTAL !!! open to discussion
 
+SECURITY !!! this helper uses javascript ```eval/Function```, it is dangerous to use it with untrusted/not compiled templates
+
 This is very universal helper inspired by [jstemplate](https://code.google.com/p/google-jstemplate/wiki/TemplateProcessingInstructionReference).
 
 Different functionality is executed based on first parameter used.
