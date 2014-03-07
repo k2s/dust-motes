@@ -150,12 +150,16 @@
                 return chunk.render(bodies['else'], ctx);
             }
 
-        } else if (params.hasOwnProperty('case')) {
-            result = jsEval('case');
+        } else if (params.hasOwnProperty('switch')) {
+            result = jsEval('switch');
             if (bodies.hasOwnProperty(result)) {
                 return chunk.render(bodies[result], ctx);
             } else {
-                _console.log("Missing body block named '" + result + "' in the 'case' helper!");
+                if (bodies.hasOwnProperty("else")) {
+                    return chunk.render(bodies['else'], ctx);
+                } else {
+                    _console.log("Missing body block named '" + result + "' in the 'case' helper!");
+                }
             }
         }
 
