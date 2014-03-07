@@ -7,18 +7,22 @@ This is very universal helper inspired by [jstemplate](https://code.google.com/p
 Different functionality is executed based on first parameter used.
 
 Value of all parameters is JavaScript expression. It is compiled and executed with access to JavaScript global, dust global and current scope data.
-The ```this``` keyword in expression is current ```chunk```. Expression is wrapped with ```with (ctx_.global) with (data_)```
-so you have access to global ans scope data without prefixing them. To access the data explicitly you may use ```ctx_``` or ```data_``` variables in expression.
+The ```this``` keyword in expression is current ```chunk```. Expression is wrapped with ```with (ctx_.global) with (data_) with (loopData_)```
+so you have access to global and scope data without prefixing them. To access the data explicitly you may use ```ctx_```, ```data_``` or ```loopData_``` variables in expression.
 
-## Definition 
+Special variable ```$this``` (different as this!) is the same as ```data_``` and ```contex.stack.head```. Other dust helpers use "." instead of $this variable.
+
+The for parameter adds to context ```$key```, ```$value``` and ```$type``` variables, their meaning is the same as in @iterate helper.
+
+## Definitions
 
 ```
 {@js expr="<JS expression>" /}
 {@js for="<JS expression>"}{$key}-{$value} of type {$type}{/js}
 {@js if="<JS expression>"}evaluated to true{:else}evaluated to false{/js}
-{@js case="<JS expression>"}
+{@js switch="<JS expression>"}
 {:a}
-if result was b
+if result was a
 {:b}
 if result was b
 {:else}
@@ -26,9 +30,10 @@ if defined, any result different from a and b will render this line
 {/js}
 ```
 
-Variables $key, $value, and $type are defined within the iteration block
-
 ## Example
+
+See tests in ```js-*-test.js``` files for more examples and usage possibilities.
+
 ```
               Data: { today: new Date(), title: "Famous People", names: [{ "name": "Larry", "age": 20 },{ "name": "Curly", "age": 30 },{ "name": "Moe", "age": 40 }] }
 
